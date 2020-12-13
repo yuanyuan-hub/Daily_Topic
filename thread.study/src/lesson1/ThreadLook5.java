@@ -13,6 +13,9 @@ public class ThreadLook5 {
             }
         };
         t.start();
+        while (true) {
+
+        }
     }
 }
 
