@@ -12,7 +12,7 @@ public class SafeThread {
     //等待20个子线程执行完毕后，在main线程打印count值（预期）
     private static int count = 0;
     public static void main(String[] args) throws InterruptedException {
-        Class clazz = SafeThread.class;                                                                                                               
+        Class clazz = SafeThread.class;
         Thread[] threads = new Thread[20];
         for (int i = 0; i < 20; i++) {
             threads[i] = new Thread(new Runnable() {
