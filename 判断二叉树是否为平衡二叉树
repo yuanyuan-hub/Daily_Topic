@@ -1,0 +1,35 @@
+import java.util.*;
+
+/*
+ * public class TreeNode {
+ *   int val = 0;
+ *   TreeNode left = null;
+ *   TreeNode right = null;
+ * }
+ */
+
+public class Solution {
+    /**
+     * 
+     * @param root TreeNode类 
+     * @return bool布尔型
+     */
+    private boolean flag = true;
+    public boolean isBalanced (TreeNode root) {
+        // write code here
+       balabced(root);
+        return flag;
+    }
+    public int balabced(TreeNode root) {
+        if(root == null) {
+            return 0;
+        }
+        int left = balabced(root.left);
+        int right = balabced(root.right);
+        int max = Math.abs(left-right);
+        if(max > 1) {
+            flag = false;
+        }
+        return left > right ? left+1 : right+1;
+    }
+}
