@@ -7,15 +7,17 @@ public class ThreadLook4 {
             Thread t = new Thread() {
                 @Override
                 public void run() {//在多线程环境下，即使同一个代码块，也是可以并发并行执行
-                    for (int i = 0; i < 10000; i++) {
-                        if (i == 9999) {
-                            System.out.println(i);
-                        }
-                    }
+//                    for (int i = 0; i < 10000; i++) {
+//                        if (i == 9999) {
+//                            System.out.println(i);
+//                        }
+//                    }
                 }
             };
+            System.out.println(i);
             t.start();
         }
+        System.out.println("ok");
     }
 }
 
