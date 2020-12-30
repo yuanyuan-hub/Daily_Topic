@@ -1,0 +1,17 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNext()) {
+            String str = sc.nextLine();
+            char a = str.toCharArray()[0];
+            if(a >= 'A' && a <= 'Z') {
+                System.out.println(str.toLowerCase());
+            }else {
+                System.out.println(str.toUpperCase());
+            }
+            
+        }
+    }
+}
