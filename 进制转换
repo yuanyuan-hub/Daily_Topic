@@ -1,0 +1,36 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 进制转换
+     * @param M int整型 给定整数
+     * @param N int整型 转换到的进制
+     * @return string字符串
+     */
+    public String solve (int M, int N) {
+        // write code here
+        if(M == 0) {
+            return "0";
+        }
+        int sign = 1;
+        if(M < 0) {
+            sign = -1;
+            M = -M;
+        }
+        StringBuilder sb = new StringBuilder();
+        while(M > 0) {
+            int k = M % N;
+            if(k >= 10){
+                sb.append((char)(k-10+'A'));
+            } else {
+                sb.append(k);
+            }
+            M = M / N;
+        }
+        if(sign == -1){
+            sb.append('-');
+        }
+        return sb.reverse().toString();
+    }
+}
