@@ -1,0 +1,43 @@
+import java.util.*;
+
+/*
+ * public class ListNode {
+ *   int val;
+ *   ListNode next = null;
+ * }
+ */
+
+public class Solution {
+    /**
+     * 
+     * @param head ListNode类 the head
+     * @return bool布尔型
+     */
+    public boolean isPail (ListNode head) {
+        // write code here
+        if(head == null || head.next == null) {
+            return true;
+        }
+        ListNode fast = head;
+        ListNode slow = head;
+        ListNode p = null;
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            ListNode next = slow.next;
+            slow.next = p;
+            p = slow;
+            slow = next;
+        }
+        if(fast != null){
+            slow = slow.next;
+        }
+        while(slow != null) {
+            if(slow.val != p.val){
+                return false;
+            }
+            slow = slow.next;
+            p = p.next;
+        }
+        return true;
+    }
+}
