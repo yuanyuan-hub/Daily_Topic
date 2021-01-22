@@ -1,0 +1,13 @@
+public class Solution {
+    public int cutRope(int target) {
+        int ret = 0;
+        for(int i = 2; i <= target;i++){
+            int n = target / i, c = target % i;
+            int ans = (int)(Math.pow(n,i-c)* Math.pow(n+1,c));
+            if(ans > ret){
+                ret = ans;
+            }
+        }
+        return ret;
+    }
+}
