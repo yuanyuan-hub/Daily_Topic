@@ -1,0 +1,24 @@
+class Solution {
+    public int pivotIndex(int[] nums) {
+        if(nums == null || nums.length == 1 || nums.length == 2) {
+            return -1;
+        }
+        int x = 0;
+        int y = 0;
+        for(int i = 0;i < nums.length;i++){
+            for(int j = i;j >= 0;j--){
+                x += nums[j];
+            }
+            for(int j = i; j < nums.length;j++){
+                y += nums[j];
+            }
+            if(x == y){
+                return i;
+            } else {
+                x = 0;
+                y = 0;
+            }
+        }
+        return -1;
+    }
+}
