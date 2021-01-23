@@ -1,0 +1,27 @@
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNext()){
+            int n = sc.nextInt();
+            int c = sc.nextInt();
+            for(int j =0;j<n;j++){
+                int b = sc.nextInt();
+                if(b <= c){
+                    c += b;
+                }else{
+                    int tmp = hightestCommon(b,c);
+                    c += tmp;
+                }
+            }
+            System.out.println(c);
+        }
+    }
+    public static int hightestCommon(int b,int c){
+        if(c==0){
+            return b;
+        }
+
+        return hightestCommon(c,b%c);
+    }
+}
