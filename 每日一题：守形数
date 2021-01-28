@@ -1,0 +1,30 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNext()){
+            int n = sc.nextInt();
+            if(n < 2 || n >= 100)
+                break;
+             ShouXiang(n);
+        }
+    }
+    
+    public static void  ShouXiang(int n){
+        int m = n*n;
+        if ( n < 10){
+            if((m-n)%10 == 0){
+                System.out.println("Yes!");
+            } else {
+                System.out.println("No!");
+            }
+        } else {
+            if((m - n) % 100 == 0) {
+                System.out.println("Yes!");
+            } else {
+                System.out.println("No!");
+            }
+        }
+    }
+}
