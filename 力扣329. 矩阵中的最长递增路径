@@ -1,0 +1,44 @@
+class Solution {
+    private int memo[][];
+    private int matrix[][];
+        private int longestIncreasingPathCore(int row,int col,int val) {
+        if(row == -1 || col == -1) return 0;
+        if(row == memo.length || col == memo[0].length) return 0;
+        if(val >= matrix[row][col]) return 0;
+        if(memo[row][col] != 0) {
+            return memo[row][col];
+        }
+        val = matrix[row][col];
+        int left = longestIncreasingPathCore(row - 1,col,val);
+        int right = longestIncreasingPathCore(row + 1,col,val);
+        int bottom = longestIncreasingPathCore(row ,col + 1,val);
+        int top = longestIncreasingPathCore(row,col- 1,val);
+        memo[row][col] = Math.max(Math.max(left,right),Math.max(bottom,top)) + 1;
+        return memo[row][col];
+    }
+    public int longestIncreasingPath(int[][] matrix) {
+        int row = matrix.length;
+        if(row == 0) return 0;
+        int col = matrix[0].length;
+        this.memo = new int[row][col];
+        this.matrix = matrix;
+        for(int i = 0;i < row;i++) {
+            for(int j = 0; j < col;j++) {
+                if(memo[i][j] != 0) continue;
+                int val = matrix[i][j];
+                int left = longestIncreasingPathCore(i - 1,j,val);
+                int right = longestIncreasingPathCore(i + 1,j,val);
+                int bottom = longestIncreasingPathCore(i ,j + 1,val);
+                int top = longestIncreasingPathCore(i,j- 1,val);
+                memo[i][j] = Math.max(Math.max(left,right),Math.max(bottom,top)) + 1;
+            }
+        }
+         int length = 1;
+    for(int i = 0 ; i < row ; i++) {
+        for(int j = 0; j < col; j++) {
+            length = Math.max(this.memo[i][j],length);
+        }
+    }
+    return length;
+    }
+}
