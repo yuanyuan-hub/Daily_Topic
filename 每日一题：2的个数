@@ -1,0 +1,29 @@
+import java.util.*;
+
+public class Count2 {
+    public int countNumberOf2s(int n) {
+        // write code here
+        if(n < 11) {
+            return 1;
+        }
+        int count = 0;//计数位数
+        int cur = 0;//记录当前位
+        int low = 0;//记录地位
+        int high = 0;//记录高位
+        int flag = 1;//标记此时记录的当前位是个十百等
+        while(n / flag != 0) {
+            low = n - (n / flag) * flag;
+            cur = (n / flag) % 10;
+            high = (n / flag) / 10;
+            if(cur == 1 || cur == 0) {
+                count += high * flag;
+            } else if(cur == 2) {
+                count += high * flag + 1 + low;
+            } else {
+                count += (high + 1) * flag;
+            }
+            flag *= 10;
+        }
+        return count;
+    }
+}
