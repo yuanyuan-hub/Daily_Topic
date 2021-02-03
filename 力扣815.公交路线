@@ -1,0 +1,37 @@
+class Solution {
+    public int numBusesToDestination(int[][] routes, int source, int target) {
+        if(source == target) return 0;
+        Map<Integer,Set<Integer>> posMap = new HashMap<>();
+        for(int i = 0 ; i < routes.length ; i++) {
+            for(int k : routes[i]) {
+                if(!posMap.containsKey(k)){
+                    posMap.put(k,new HashSet<Integer>());
+                }
+                posMap.get(k).add(i);
+            }
+        }
+        boolean[] visited = new boolean[routes.length];
+        Deque<Integer> queue = new ArrayDeque<>();
+        queue.addAll(posMap.get(source));
+        for(int k : posMap.get(source)){
+            visited[k] = true;
+        }
+        int res = 1;
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            for(int i = 0; i < size;i ++) {
+                int bus = queue.poll();
+                for(int k : routes[bus]) {
+                    if(k == target) return res;
+                    for(int busindex : posMap.get(k)){
+                        if(visited[busindex]) continue;
+                        queue.add(busindex);
+                        visited[busindex] = true;
+                    }
+                }
+            }
+            res++;
+        }
+        return -1;
+    }
+}
