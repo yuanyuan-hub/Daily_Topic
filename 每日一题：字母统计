@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()){
+            String str = sc.nextLine();
+            char[] chars = str.toCharArray();
+            int count = 0;
+            for (int i = 'A'; i <= 'Z'; i++) {
+                for (int j = 0; j < str.length(); j++) {
+                    if(i == chars[j]) {
+                        count++;
+                    }
+                }
+                char c = (char)i;
+                System.out.println(c+":"+count);
+                count = 0;
+            }
+        }
+    }
+}
