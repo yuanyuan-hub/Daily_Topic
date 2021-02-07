@@ -1,0 +1,12 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        while (sc.hasNext()) {
+            String str =  sc.next().substring(2);
+            long ten = Long.parseLong(str,16);
+            System.out.println(ten);
+        }
+    }
+}
