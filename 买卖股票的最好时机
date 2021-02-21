@@ -1,0 +1,20 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 
+     * @param prices int整型一维数组 
+     * @return int整型
+     */
+    public int maxProfit (int[] prices) {
+        // write code here
+        int max = 0;
+        int min = prices[0];
+        for(int i : prices) {
+            max = Math.max(max, i - min);
+            min = Math.min(min,i);
+        }
+        return max;
+    }
+}
