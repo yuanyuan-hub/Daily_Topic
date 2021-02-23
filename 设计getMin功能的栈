@@ -1,0 +1,39 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * return a array which include all ans for op3
+     * @param op int整型二维数组 operator
+     * @return int整型一维数组
+     */
+    public int[] getMinStack (int[][] op) {
+    // write code here
+    ArrayList<Integer> arrayList = new ArrayList<>(); //存储最小值的数组
+    if (op.length==0){
+        return null;
+    }
+    Stack<Integer> stack = new Stack<>();    //建立一个栈实现入栈出栈操作
+    for (int i=0;i<op.length;i++){
+        if (op[i][0]==1){                    //入栈
+            stack.push(op[i][1]);
+        }
+        if (op[i][0]==2){                    //出栈
+            stack.pop();
+        }
+        if (op[i][0]==3){                    //getMin操作
+            ArrayList<Integer> list = new ArrayList<>();    //创建数组存储栈中所有元素
+            for (int value: stack){          //遍历
+                list.add(value);
+            }
+            Collections.sort(list);          //升序排序
+            arrayList.add(list.get(0));      //取出最小值
+        }
+    }
+    int[] result=new int[arrayList.size()];  //创建结果数组
+    for (int i=0;i<result.length;i++){       //遍历最小值数组给结果数组赋值
+        result[i]=arrayList.get(i);
+    }
+    return result;
+}
+}
