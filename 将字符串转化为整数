@@ -1,0 +1,45 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 
+     * @param str string字符串 
+     * @return int整型
+     */
+    public int atoi (String str) {
+        // write code here
+         if (str == null || str.trim().length() < 1)
+            return 0;
+        //处理掉前后空格
+        char[] arr = str.trim().toCharArray();
+ 
+        int sign = 1, index = 0;
+        //判断正负号
+        if (arr[0] == '+')
+            index++;
+        if (arr[0] == '-') {
+            sign = -1;
+            index++;
+        }
+ 
+        int num = 0;
+        for (int i = index; i < arr.length; i++) {
+            if (arr[i] - '0' >= 0 && arr[i] - '9' <= 0) {
+                //如果当前运算会越界的时候，直接输出结果
+                if (num > Integer.MAX_VALUE / 10 || num == Integer.MAX_VALUE / 10 && arr[i] - '7' > 0) {
+                    if (sign > 0)
+                        return Integer.MAX_VALUE;
+                    else
+                        return Integer.MIN_VALUE;
+                }
+ 
+                num = 10 * num + arr[i] - '0';
+            } else
+                //如果是字母，跳出循环
+                break;
+        }
+ 
+        return num * sign;
+    }
+}
