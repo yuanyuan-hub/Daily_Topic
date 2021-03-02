@@ -1,0 +1,29 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 
+     * @param n int整型 the n
+     * @return int整型
+     */
+    public int Nqueen (int n) {
+        // write code here
+        return solve(n, 0, 0, 0, 0);
+    }
+    
+    private int solve(int n , int row, int col, int dia1, int dia2) {
+        if(row == n) {
+            return 1;
+        } else {
+            int count = 0;
+            int availablePos = ((1 << n) - 1) &(~(col | dia1 | dia2));
+            while(availablePos != 0) {
+                int pos = availablePos &(-availablePos);
+                availablePos = availablePos &(availablePos - 1);
+                count += solve(n, row + 1, col|pos, (dia1 | pos) << 1, (dia2 | pos) >> 1);
+            }
+            return count;
+        }
+    }
+}
