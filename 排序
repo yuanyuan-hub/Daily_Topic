@@ -1,0 +1,44 @@
+import java.util.*;
+
+
+public class Solution {
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     * 将给定数组排序
+     * @param arr int整型一维数组 待排序的数组
+     * @return int整型一维数组
+     */
+    public int[] MySort (int[] arr) {
+        // write code here
+        if(arr.length == 0) return new int[0];
+        quicksort(arr, 0, arr.length - 1);
+        return arr;
+    }
+    
+    public void quicksort(int[] arr, int low, int high) {
+        if(low < high) {
+            int pi = partition(arr, low, high);
+            
+            quicksort(arr, low, pi-1);
+            quicksort(arr, pi+1, high);
+        }
+    }
+    
+    public int partition(int[] arr, int low, int high) {
+        int pivot = arr[high];
+        int i = low - 1;
+        for (int j=low; j<high; j++) {
+            if(arr[j] <pivot) {
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+        int temp = arr[i+1]; 
+        arr[i+1] = arr[high]; 
+        arr[high] = temp; 
+  
+        return i+1; 
+    }
+}
