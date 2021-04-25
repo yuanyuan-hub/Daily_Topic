@@ -1,0 +1,86 @@
+import java.util.Scanner;
+import java.io.*;
+public class Main{
+    public static void main(String[] args) throws IOException {
+        //Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        //System.out.println("n");
+        int n = Integer.parseInt(br.readLine());
+        String p = br.readLine();
+        String[] s1 = p.trim().split(" ");
+        int[] power = new int[n];
+        for(int i=0; i< n; i++){
+            power[i] = Integer.parseInt(s1[i]);
+        }
+           
+        String t = br.readLine();
+        String[] s2 = t.trim().split(" ");
+        int k = Integer.parseInt(s2[0]);
+        int d = Integer.parseInt(s2[1]);
+        int[] tiaojian = {k,d};
+           
+        //int[] power = new int[]{7,4,7,8,5};
+        //int[] tiaojian = new int[]{2, 50};
+        SelectStudent ss = new SelectStudent(n, power, tiaojian);
+        System.out.println(ss.selectMaxPowerMulit());
+    }
+}
+   
+   
+class SelectStudent{
+    int num;
+    int[] power;
+    int[] tiaojian;
+       
+    SelectStudent(int num, int[] power, int[] tiaojian){
+        this.num = num;
+        this.power = power;
+        this.tiaojian = tiaojian;
+    }
+       
+    public long selectMaxPowerMulit(){
+           
+        //初始值
+        int n = num;
+        int k = tiaojian[0];
+        int d = tiaojian[1];
+        long[][][] dp = new long[n][k][2];
+//        long[][] max = new long[n][k];
+//        long[][] min = new long[n][k];
+        long globalMax = power[0];
+        for(int i=0; i< n-k+1; i++){
+            dp[i][0][0] = power[i];
+//            max[i][0] = power[i];
+            if(power[i] > globalMax)
+                globalMax = power[i];
+        }
+     
+        for(int j=1; j< k; j++){
+            for(int i=j; i< n-k+1+j; i++){
+                //if power[0..i-1] - power[i] < d
+                //dp[i][j] = max (dp[0..i-1][j-1] * power[i])
+                int beginIndex = Math.max(i-d, j-1);
+//                System.out.println(i +"行" + j+"列：" + dp[i][j][0] + "," + dp[i][j][1]);
+                for(int m = beginIndex; m < i; m++){
+                   // if(Math.abs(power[m] - power[i]) <= d){
+                    //if(power[i] > 0){
+                      //  dp[i][j][0] = Math.max(dp[m][j-1][0] * power[i], dp[i][j][0]);
+                        //dp[i][j][1] = Math.min(dp[m][j-1][1] * power[i], dp[i][j][1]);
+                    //}else{
+                      //  dp[i][j][0] = Math.max(dp[m][j-1][1] * power[i], dp[i][j][0]);
+                        //dp[i][j][1] = Math.min(dp[m][j-1][0] * power[i], dp[i][j][1]);
+                    //}
+                    for(long mm : dp[m][j-1])
+                        if(mm * power[i] > dp[i][j][0])
+                            dp[i][j][0] = mm * power[i];
+                       else if(mm * power[i] < dp[i][j][1])
+                           dp[i][j][1] = mm * power[i];
+                }
+                if(j == k-1)
+                    if(dp[i][j][0] > globalMax)
+                        globalMax = dp[i][j][0];
+            }
+        }
+        return globalMax;
+    }
+}
