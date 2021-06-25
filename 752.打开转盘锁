@@ -1,0 +1,49 @@
+class Solution {
+    public int openLock(String[] deadends, String target) {
+        HashSet<String> dead = new HashSet<>(Arrays.asList(deadends));
+        Set<String> visited = new HashSet<>();
+        String start="0000";
+        Queue<String> queue1 = new LinkedList<>();
+        Queue<String> queue2 = new LinkedList<>();
+        queue1.offer(start);
+        int step=0;
+        if(dead.contains(target)||dead.contains("0000")) return -1;
+        while(!queue1.isEmpty()){
+            String cur=queue1.poll();
+            if(target.equals(cur)){
+                return step;
+            }
+            List<String> nexts= getNexts(cur);
+            for(String s:nexts){
+                if(!dead.contains(s)&&!visited.contains(s)){
+                    visited.add(s);
+                    queue2.offer(s);
+                }
+            }
+            if(queue1.isEmpty()){
+                queue1=queue2;
+                queue2=new LinkedList<String>();
+                step++;
+            }
+            
+        }
+        return -1;
+    }
+/**
+*获取邻接的所有节点
+*/
+    public List<String> getNexts(String cur){
+        List<String> list = new ArrayList<>();
+        
+        for(int i=0;i<4;i++){
+            StringBuilder curSb= new StringBuilder(cur);
+            curSb.setCharAt(i,cur.charAt(i)=='0'?'9':(char)(cur.charAt(i)-1));
+            list.add(curSb.toString());
+            curSb.setCharAt(i,(char)cur.charAt(i)=='9'?'0':(char)(cur.charAt(i)+1));
+            list.add(curSb.toString());
+               
+        }
+        return list;
+        
+    }
+}
