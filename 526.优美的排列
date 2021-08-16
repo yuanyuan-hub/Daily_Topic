@@ -1,0 +1,29 @@
+class Solution {
+    private int res = 0;
+    private int[] visited = null;
+
+    public int countArrangement(int n) {
+       visited = new int[n+1];
+       dfs(1,n);
+       return res;
+    }
+
+    // 使用回溯算法对N进行全排列
+    private void dfs (int depth,int n) {
+        // 当深度达到n+1（n是从1开始的，所以这里的边界条件是n+1）的时候表示该递归线路是符合规定的优美排序
+        if (depth == n+1) {
+            res++;
+            return;
+        }
+        for (int i=1;i<=n;i++) {
+            // 当递归过程中发现有已经访问的节点 或者 不满足优美排序的条件的直接跳过
+            if (visited[i] != 0 || (depth%i!=0 && i%depth!=0) ) {
+                continue;
+            }
+            // 回溯处理，这里没有什么好说的。
+            visited[i] = 1;
+            dfs(depth+1,n);
+            visited[i] = 0;
+        }
+    }
+}
