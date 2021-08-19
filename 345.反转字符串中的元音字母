@@ -1,0 +1,42 @@
+class Solution {
+    public String reverseVowels(String s) {
+        HashSet<Character> oset = new HashSet<Character>();
+        oset.add('a');
+        oset.add('A');
+        oset.add('e');
+        oset.add('E');
+        oset.add('i');
+        oset.add('I');
+        oset.add('o');
+        oset.add('O');
+        oset.add('u');
+        oset.add('U');
+
+        char[] chars = s.toCharArray();
+        int l = 0;
+        int r = s.length() - 1;
+        while (l < r) {
+            // 首先找到最左侧的元音字母
+            while (!oset.contains(chars[l]) && l < r) {
+                l++;
+            }
+            // 然后找到最右侧的元音字母
+            while (!oset.contains(chars[r]) && l < r) {
+                r--;
+            }
+            // 如果双指针没有超过彼此 , 进行字符的对调
+            if (l < r) {
+                // 对调
+                char temp = chars[l];
+                chars[l] = chars[r];
+                chars[r] = temp;
+                // 将双指针全部前进一个位置。
+                l++;
+                r--;
+            }
+
+        }
+
+        return new String(chars);
+    }
+}
